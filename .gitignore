@@ -1,0 +1,4 @@
+# Ignoring IntelliJ specific files.
+.idea
+IDATG2001-Mappe-2.iml/
+target*
