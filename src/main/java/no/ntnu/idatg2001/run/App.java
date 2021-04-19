@@ -1,4 +1,4 @@
-package no.ntnu.idatg2001;
+package no.ntnu.idatg2001.run;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

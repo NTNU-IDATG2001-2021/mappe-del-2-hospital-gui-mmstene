@@ -1,4 +1,4 @@
-package no.ntnu.idatg2001;
+package no.ntnu.idatg2001.patient;
 
 public class Patient {
     private String firstName;

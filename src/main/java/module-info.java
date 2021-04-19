@@ -2,6 +2,10 @@ module no.ntnu.idatg2001 {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens no.ntnu.idatg2001 to javafx.fxml;
-    exports no.ntnu.idatg2001;
+    exports no.ntnu.idatg2001.run;
+    opens no.ntnu.idatg2001.run to javafx.fxml;
+    exports no.ntnu.idatg2001.exception;
+    opens no.ntnu.idatg2001.exception to javafx.fxml;
+    exports no.ntnu.idatg2001.patient;
+    opens no.ntnu.idatg2001.patient to javafx.fxml;
 }
