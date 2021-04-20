@@ -94,7 +94,7 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem fx:id="aboutApp" mnemonicParsing="false" text="About" />
+                                <MenuItem fx:id="aboutApp" mnemonicParsing="false" onAction="#handleAbout" text="About" />
                             </items>
                         </Menu>
                     </menus>

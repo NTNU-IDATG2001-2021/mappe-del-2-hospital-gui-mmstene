@@ -53,4 +53,13 @@ public class PrimaryRegisterViewController {
             alert.close();
         }
     }
+
+    @FXML
+    public void handleAbout(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About the software");
+        alert.setHeaderText("Patient register v1");
+        alert.setContentText("This is a fantastic program created by\n" + "(C)Martin Stene\n" + "2021" );
+        alert.showAndWait();
+    }
 }
