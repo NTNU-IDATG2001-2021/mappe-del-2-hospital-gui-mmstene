@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -27,10 +28,19 @@
                 <Font name="Helvetica" size="14.0" />
             </font>
         </Label>
-        <Button layoutX="155.0" layoutY="425.0" mnemonicParsing="false" text="Done">
-            <font>
-                <Font name="Helvetica" size="24.0" />
-            </font>
-        </Button>
+      <HBox layoutX="80.0" layoutY="429.0" spacing="50.0">
+         <children>
+            <Button cancelButton="true" mnemonicParsing="false" text="Cancel">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button defaultButton="true" mnemonicParsing="false" text="Done">
+               <font>
+                  <Font name="Helvetica" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

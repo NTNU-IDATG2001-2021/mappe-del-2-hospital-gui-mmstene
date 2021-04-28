@@ -4,18 +4,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.ntnu.idatg2001.run.AddPatientViewController">
    <children>
       <VBox alignment="CENTER" layoutX="101.0" layoutY="123.0" prefHeight="104.0" prefWidth="198.0" spacing="50.0">
          <children>
-            <TextField alignment="CENTER" promptText="Enter the first name" />
-            <TextField alignment="CENTER" promptText="Enter the last name" />
-            <TextField alignment="CENTER" promptText="Enter the SSN (11 integers)" />
-            <TextField alignment="CENTER" promptText="Enter the name of the doctor" />
+            <TextField fx:id="firstNameField" alignment="CENTER" promptText="Enter the first name" />
+            <TextField fx:id="lastNameField" alignment="CENTER" promptText="Enter the last name" />
+            <TextField fx:id="ssnField" alignment="CENTER" promptText="Enter the SSN (11 integers)" />
+            <TextField fx:id="nameOfDoctorField" alignment="CENTER" promptText="Enter the name of the doctor" />
          </children>
       </VBox>
       <Label layoutX="137.0" layoutY="14.0" text="New patient">
@@ -28,10 +28,19 @@
             <Font name="Helvetica" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="155.0" layoutY="425.0" mnemonicParsing="false" text="Done">
-         <font>
-            <Font name="Helvetica" size="24.0" />
-         </font>
-      </Button>
+      <HBox layoutX="79.0" layoutY="419.0" spacing="50.0">
+         <children>
+            <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#closeWindow" text="Cancel">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="doneButton" defaultButton="true" mnemonicParsing="false" onAction="#handleCreateButton" text="Done">
+               <font>
+                  <Font name="Helvetica" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

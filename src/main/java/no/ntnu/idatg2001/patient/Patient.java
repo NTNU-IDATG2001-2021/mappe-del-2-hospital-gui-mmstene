@@ -7,11 +7,11 @@ public class Patient {
     private transient String diagnosis;
     private String generalPractitioner;
 
-    public Patient(String firstName, String lastName, String socialSecurityNumber, String diagnosis, String generalPractitioner) {
+    public Patient(String firstName, String lastName, String socialSecurityNumber, String generalPractitioner) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.socialSecurityNumber = socialSecurityNumber;
-        this.diagnosis = diagnosis;
+        //this.diagnosis = diagnosis;
         this.generalPractitioner = generalPractitioner;
     }
 

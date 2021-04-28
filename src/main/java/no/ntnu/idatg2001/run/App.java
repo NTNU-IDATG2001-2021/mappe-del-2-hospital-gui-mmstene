@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import no.ntnu.idatg2001.patient.PatientRegister;
 
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
+
+    public static PatientRegister patientRegister = new PatientRegister();
 
     private static Scene scene;
 
