@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,6 +54,13 @@ public class PrimaryRegisterViewController implements Initializable {
     private MenuItem aboutApp;
 
     @FXML
+    public void removePatient(){
+        Patient patient = tableView.getSelectionModel().getSelectedItem();
+        App.patientRegister.getPatientArrayList().remove(patient);
+        getPatients();
+    }
+
+    @FXML
     public void handleAddButton() throws IOException {
         FXMLLoader addPatientWindow = new FXMLLoader(getClass().getClassLoader().getResource("AddPatientView.fxml"));
         Scene addP = new Scene(addPatientWindow.load());
@@ -64,8 +72,15 @@ public class PrimaryRegisterViewController implements Initializable {
 
     @FXML
     public void handleEditButton() throws IOException {
-        FXMLLoader addPatientWindow = new FXMLLoader(getClass().getClassLoader().getResource("EditPatientView.fxml"));
-        Scene addP = new Scene(addPatientWindow.load());
+        Patient patient = tableView.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("EditPatientView.fxml"));
+        Parent parent = loader.load();
+
+        EditPatientViewController popupEdit = loader.getController();
+        popupEdit.initData(patient);
+
+        Scene addP = new Scene(parent);
         Stage stage = new Stage();
         stage.setScene(addP);
         stage.showAndWait();

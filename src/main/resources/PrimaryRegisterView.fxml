@@ -53,7 +53,7 @@
                <tooltip>
                   <Tooltip text="Edit a patient" />
                </tooltip></Button>
-                <Button fx:id="removePatientButton" mnemonicParsing="false" style="-fx-cursor: hand;">
+                <Button fx:id="removePatientButton" mnemonicParsing="false" onAction="#removePatient" style="-fx-cursor: hand;">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -79,7 +79,7 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Edit">
                             <items>
-                                <MenuItem fx:id="addPatient" mnemonicParsing="false" text="Add a new patient">
+                                <MenuItem fx:id="addPatient" mnemonicParsing="false" onAction="#handleAddButton" text="Add a new patient">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -95,7 +95,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                                <MenuItem fx:id="removePatient" mnemonicParsing="false" text="Remove a selected patient">
+                                <MenuItem fx:id="removePatient" mnemonicParsing="false" onAction="#removePatient" text="Remove a selected patient">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

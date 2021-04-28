@@ -11,6 +11,10 @@ public class PatientRegister {
         addFunny();
     }
 
+    public void getPatientFromSSN(){
+
+    }
+
     public void addPatient(Patient newPatient) {
         patientArrayList.add(newPatient);
     }
