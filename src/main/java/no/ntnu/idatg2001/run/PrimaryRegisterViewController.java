@@ -13,7 +13,6 @@ import no.ntnu.idatg2001.patient.Patient;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -60,6 +59,7 @@ public class PrimaryRegisterViewController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(addP);
         stage.showAndWait();
+        getPatients();
     }
 
     @FXML
@@ -69,6 +69,7 @@ public class PrimaryRegisterViewController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(addP);
         stage.showAndWait();
+        getPatients();
     }
 
     @FXML
@@ -95,37 +96,20 @@ public class PrimaryRegisterViewController implements Initializable {
         alert.showAndWait();
     }
 
-    /*public void updateTasks() {
-        // Get tasks from database
-        App.patientRegister = App.patientRegister.getPatientArrayList();
-
-        // Set tasks to list view
-        ObservableList<String> listOfTaskNames = FXCollections.observableArrayList(new ArrayList<>());
-        for (Task task : App.tasksCurrentlyShown) {
-            listOfTaskNames.add(task.getTaskName());
-        }
-        listOfTasks.setItems(listOfTaskNames);
-    }*/
-
     @FXML
     private void getPatients() {
-
         ObservableList<Patient> patientsObservableList = FXCollections.observableArrayList();
         patientsObservableList.addAll(App.patientRegister.getPatientArrayList());
 
         tableView.setItems(patientsObservableList);
     }
 
-    public void setTableContent(ArrayList<Patient> patientArrayList) {
-        tableView.getItems().setAll(patientArrayList);
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Patient, String>("firstName"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<Patient, String>("lastName"));
-        socialSecurityNumberColumn.setCellValueFactory(new PropertyValueFactory<Patient, String>("socialSecurityNumber"));
-        nameOfDoctorColumn.setCellValueFactory(new PropertyValueFactory<Patient, String>("generalPractitioner"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        socialSecurityNumberColumn.setCellValueFactory(new PropertyValueFactory<>("socialSecurityNumber"));
+        nameOfDoctorColumn.setCellValueFactory(new PropertyValueFactory<>("generalPractitioner"));
         getPatients();
     }
 }
