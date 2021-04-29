@@ -1,38 +1,39 @@
 package no.ntnu.idatg2001.patient;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class PatientRegister {
+public class PatientRegister implements Register{
 
-    ArrayList<Patient> patientArrayList;
+    List<Patient> patientArrayList;
 
     public PatientRegister() {
         patientArrayList = new ArrayList<>();
-        addFunny();
+        addSomePatients();
     }
 
-    public void getPatientFromSSN(){
-
+    public void setPatientArrayList(List<Patient> patientArrayList) {
+        this.patientArrayList = patientArrayList;
     }
 
+    @Override
+    public void addSomePatients(){
+        patientArrayList.add(new Patient("Martin", "Stene",
+                "08059964537", "Taknæs"));
+    }
+
+    @Override
     public void addPatient(Patient newPatient) {
         patientArrayList.add(newPatient);
     }
 
+    @Override
     public void removePatient(Patient patient) {
         patientArrayList.remove(patient);
     }
 
-    public ArrayList<Patient> getPatientArrayList() {
+    @Override
+    public List<Patient> getPatientArrayList() {
         return patientArrayList;
-    }
-
-    public void setPatientArrayList(ArrayList<Patient> patientArrayList) {
-        this.patientArrayList = patientArrayList;
-    }
-
-    public void addFunny(){
-        patientArrayList.add(new Patient("Hei", "Moro",
-                "123", "Hansen"));
     }
 }

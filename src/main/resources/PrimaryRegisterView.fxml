@@ -87,7 +87,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                                <MenuItem fx:id="editPatient" mnemonicParsing="false" text="Edit a patient">
+                                <MenuItem fx:id="editPatient" mnemonicParsing="false" onAction="#handleEditButton" text="Edit a patient">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

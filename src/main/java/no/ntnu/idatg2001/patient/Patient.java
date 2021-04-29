@@ -1,5 +1,7 @@
 package no.ntnu.idatg2001.patient;
 
+import java.util.Objects;
+
 public class Patient {
     private String firstName;
     private String lastName;
@@ -56,12 +58,20 @@ public class Patient {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patient patient = (Patient) o;
+        return socialSecurityNumber.equals(patient.socialSecurityNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(socialSecurityNumber);
+    }
+
+    @Override
     public String toString() {
-        return "Patient{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", socialSecurityNumber='" + socialSecurityNumber + '\'' +
-                ", generalPractitioner='" + generalPractitioner + '\'' +
-                '}';
+        return firstName + " " + lastName;
     }
 }

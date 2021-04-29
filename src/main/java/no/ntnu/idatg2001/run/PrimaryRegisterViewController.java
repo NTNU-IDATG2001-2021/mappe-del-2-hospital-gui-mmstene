@@ -54,10 +54,23 @@ public class PrimaryRegisterViewController implements Initializable {
     private MenuItem aboutApp;
 
     @FXML
-    public void removePatient(){
+    public void removePatient() {
         Patient patient = tableView.getSelectionModel().getSelectedItem();
-        App.patientRegister.getPatientArrayList().remove(patient);
-        getPatients();
+        if (patient != null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Removing the patient");
+            alert.setHeaderText("Do you really want to remove " + patient + " from the registry?");
+            alert.setContentText("Are you really ok with this?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                App.patientRegister.removePatient(patient);
+                getPatients();
+            } else {
+                alert.close();
+            }
+        }
+
     }
 
     @FXML
@@ -72,19 +85,22 @@ public class PrimaryRegisterViewController implements Initializable {
 
     @FXML
     public void handleEditButton() throws IOException {
-        Patient patient = tableView.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("EditPatientView.fxml"));
-        Parent parent = loader.load();
+        try {
+            Patient patient = tableView.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("EditPatientView.fxml"));
+            Parent parent = loader.load();
 
-        EditPatientViewController popupEdit = loader.getController();
-        popupEdit.initData(patient);
+            EditPatientViewController popupEdit = loader.getController();
+            popupEdit.initData(patient);
 
-        Scene addP = new Scene(parent);
-        Stage stage = new Stage();
-        stage.setScene(addP);
-        stage.showAndWait();
-        getPatients();
+            Scene addP = new Scene(parent);
+            Stage stage = new Stage();
+            stage.setScene(addP);
+            stage.showAndWait();
+            getPatients();
+        }catch (NullPointerException ignored){
+        }
     }
 
     @FXML
