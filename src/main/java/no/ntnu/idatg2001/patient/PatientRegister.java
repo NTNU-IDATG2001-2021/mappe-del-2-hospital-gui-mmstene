@@ -12,14 +12,12 @@ public class PatientRegister implements Register{
         addSomePatients();
     }
 
-    public void setPatientArrayList(List<Patient> patientArrayList) {
-        this.patientArrayList = patientArrayList;
-    }
-
     @Override
     public void addSomePatients(){
         patientArrayList.add(new Patient("Martin", "Stene",
                 "08059964537", "Taknæs"));
+        patientArrayList.add(new Patient("Martinus", "Stenesen",
+                "08059964666", "Taknæs"));
     }
 
     @Override
@@ -28,8 +26,8 @@ public class PatientRegister implements Register{
     }
 
     @Override
-    public void removePatient(Patient patient) {
-        patientArrayList.remove(patient);
+    public void removePatient(Patient patientToBeRemoved) {
+        patientArrayList.remove(patientToBeRemoved);
     }
 
     @Override

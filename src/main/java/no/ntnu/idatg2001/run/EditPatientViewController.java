@@ -23,17 +23,8 @@ public class EditPatientViewController implements Initializable {
     public TextField nameOfDoctorField;
     private Patient selectedPatient;
 
-    public void initData(Patient patient) {
-        this.selectedPatient = patient;
-
-        firstNameField.setText(patient.getFirstName());
-        lastNameField.setText(patient.getLastName());
-        ssnField.setText(patient.getSocialSecurityNumber());
-        nameOfDoctorField.setText(patient.getGeneralPractitioner());
-    }
-
     @FXML
-    public void handleUpdateTaskButton(ActionEvent event) throws IOException {
+    public void handleUpdatePatientButton(ActionEvent event) throws IOException {
         if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty() &&
                 !ssnField.getText().isEmpty() && !nameOfDoctorField.getText().isEmpty()) {
             // Apply changes to task
@@ -61,6 +52,15 @@ public class EditPatientViewController implements Initializable {
     public void closePopup(ActionEvent event) {
         Stage popupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         popupStage.close();
+    }
+
+    public void initData(Patient patient) {
+        this.selectedPatient = patient;
+
+        firstNameField.setText(patient.getFirstName());
+        lastNameField.setText(patient.getLastName());
+        ssnField.setText(patient.getSocialSecurityNumber());
+        nameOfDoctorField.setText(patient.getGeneralPractitioner());
     }
 
     @Override

@@ -2,10 +2,7 @@ package no.ntnu.idatg2001.run;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -14,8 +11,6 @@ import no.ntnu.idatg2001.patient.Patient;
 import java.io.IOException;
 
 public class AddPatientViewController {
-
-
     public Button doneButton;
     public Button cancelButton;
     public TextField firstNameField;
@@ -31,7 +26,6 @@ public class AddPatientViewController {
         ssnField.setStyle("-fx-border-color: lightgrey;");
         nameOfDoctorField.setStyle("-fx-border-color: lightgrey;");
 
-
         if (firstNameField.getText().isEmpty()) {
             firstNameField.setStyle("-fx-border-color: red;");
         }
@@ -43,21 +37,19 @@ public class AddPatientViewController {
         }
         if (nameOfDoctorField.getText().isEmpty()) {
             nameOfDoctorField.setStyle("-fx-border-color: red;");
-        }
-
-        else {
+        } else {
             App.patientRegister.addPatient(new Patient(firstNameField.getText(), lastNameField.getText(), ssnField.getText()
-                    ,nameOfDoctorField.getText()));
+                    , nameOfDoctorField.getText()));
             closePopup(event);
         }
     }
 
     @FXML
-    public void closeWindow(ActionEvent event){
+    public void closeWindow(ActionEvent event) {
         closePopup(event);
     }
 
-    public void closePopup(ActionEvent event){
+    public void closePopup(ActionEvent event) {
         Stage popupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         popupStage.close();
     }

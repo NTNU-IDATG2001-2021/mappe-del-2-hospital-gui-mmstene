@@ -27,7 +27,7 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="doneButton" defaultButton="true" mnemonicParsing="false" onAction="#handleUpdateTaskButton" text="Done">
+            <Button fx:id="doneButton" defaultButton="true" mnemonicParsing="false" onAction="#handleUpdatePatientButton" text="Done">
                <font>
                   <Font name="Helvetica" size="24.0" />
                </font>
