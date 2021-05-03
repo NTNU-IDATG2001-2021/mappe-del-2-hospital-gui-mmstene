@@ -72,14 +72,14 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem fx:id="importFromCSV" mnemonicParsing="false" text="Import from .CSV" />
-                                <MenuItem fx:id="exportToCSV" mnemonicParsing="false" text="Export  to .CSV" />
-                                <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#handleExitButton" text="Exit" />
+                                <MenuItem fx:id="importFromCSV" mnemonicParsing="false" onAction="#selectFile" text="Import from .CSV" />
+                                <MenuItem fx:id="exportToCSV" mnemonicParsing="false" onAction="#saveAsCSV" text="Export  to .CSV" />
+                                <MenuItem fx:id="exitButton" accelerator="Esc" mnemonicParsing="false" onAction="#handleExitButton" text="Exit" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Edit">
                             <items>
-                                <MenuItem fx:id="addPatient" mnemonicParsing="false" onAction="#handleAddButton" text="Add a new patient">
+                                <MenuItem fx:id="addPatient" accelerator="A" mnemonicParsing="false" onAction="#handleAddButton" text="Add a new patient">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -87,7 +87,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                                <MenuItem fx:id="editPatient" mnemonicParsing="false" onAction="#handleEditButton" text="Edit a patient">
+                                <MenuItem fx:id="editPatient" accelerator="E" mnemonicParsing="false" onAction="#handleEditButton" text="Edit a patient">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -95,7 +95,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                                <MenuItem fx:id="removePatient" mnemonicParsing="false" onAction="#removePatient" text="Remove a selected patient">
+                                <MenuItem fx:id="removePatient" accelerator="R" mnemonicParsing="false" onAction="#removePatient" text="Remove a selected patient">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

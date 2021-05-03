@@ -23,7 +23,7 @@ public class EditPatientViewController implements Initializable {
     public TextField nameOfDoctorField;
     private Patient selectedPatient;
 
-    public void initData (Patient patient)  {
+    public void initData(Patient patient) {
         this.selectedPatient = patient;
 
         firstNameField.setText(patient.getFirstName());
@@ -34,9 +34,8 @@ public class EditPatientViewController implements Initializable {
 
     @FXML
     public void handleUpdateTaskButton(ActionEvent event) throws IOException {
-        if(!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty() &&
-                !ssnField.getText().isEmpty() && !nameOfDoctorField.getText().isEmpty())
-        {
+        if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty() &&
+                !ssnField.getText().isEmpty() && !nameOfDoctorField.getText().isEmpty()) {
             // Apply changes to task
             this.selectedPatient.setFirstName(firstNameField.getText());
             this.selectedPatient.setLastName(lastNameField.getText());
@@ -55,11 +54,11 @@ public class EditPatientViewController implements Initializable {
     }
 
     @FXML
-    public void closeWindow(ActionEvent event){
+    public void closeWindow(ActionEvent event) {
         closePopup(event);
     }
 
-    public void closePopup(ActionEvent event){
+    public void closePopup(ActionEvent event) {
         Stage popupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         popupStage.close();
     }
