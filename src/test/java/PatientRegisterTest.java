@@ -17,7 +17,7 @@ class PatientRegisterTest {
         System.out.println("Entering new patients");
         patientRegister = new PatientRegister();
         patient = new Patient("Heihei", "Svein",
-                "12345678901", "Hansen");
+                "12345678901", "Hansen", "diagnosis");
         patientRegister.getPatientArrayList().add(patient);
     }
 

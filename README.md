@@ -1,8 +1,8 @@
 # Table of Contents
 
-1. [Description](Description)
-2. [Cloning](Cloning)
-3. [Usage](Useage)
+1. [Description]()
+2. [Cloning]()
+3. [Usage]()
 
 # Description
 
@@ -23,5 +23,7 @@ To use this software you can easily navigate using the buttons on screen. The pl
 The cogwheel icon is to edit a selected person. The X icon is to remove a selcted patient.
 The patients will be shown in the tableview in the center of the screen. You can also import a spredsheet in the form of a .csv file to add to the tableview.
 If you want to export from the tableview you can do that too!* 
+
+You will also be able to use hotkeys for adding "A", editing "E", removing "R" and exiting "Esc"
 
 *This only works for .csv files!

@@ -14,17 +14,26 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+    /**
+     * The constant patientRegister. This is to use the same list over the whole project.
+     */
     public static PatientRegister patientRegister = new PatientRegister();
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("PrimaryRegisterView"), 640, 480);
+        scene = new Scene(loadFXML("PrimaryRegisterView"));
         stage.setScene(scene);
         stage.show();
     }
 
+    /**
+     * Sets root.
+     *
+     * @param fxml the fxml
+     * @throws IOException the io exception
+     */
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
@@ -34,6 +43,11 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

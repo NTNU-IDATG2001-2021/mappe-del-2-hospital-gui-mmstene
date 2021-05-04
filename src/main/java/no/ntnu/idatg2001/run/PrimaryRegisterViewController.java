@@ -19,6 +19,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Primary register view controller.
+ */
 public class PrimaryRegisterViewController implements Initializable {
     @FXML
     private TableView<Patient> tableView;
@@ -30,7 +33,12 @@ public class PrimaryRegisterViewController implements Initializable {
     private TableColumn<Patient, String> socialSecurityNumberColumn;
     @FXML
     private TableColumn<Patient, String> nameOfDoctorColumn;
+    @FXML
+    private TableColumn<Patient, String> diagnosisColumn;
 
+    /**
+     * Remove patient.
+     */
     @FXML
     public void removePatient() {
         try {
@@ -56,6 +64,11 @@ public class PrimaryRegisterViewController implements Initializable {
         }
     }
 
+    /**
+     * Handle add button.
+     *
+     * @throws IOException the io exception
+     */
     @FXML
     public void handleAddButton() throws IOException {
         FXMLLoader addPatientWindow = new FXMLLoader(getClass().getClassLoader().getResource("AddPatientView.fxml"));
@@ -66,6 +79,11 @@ public class PrimaryRegisterViewController implements Initializable {
         getPatients(); // This is for updating the tableview after adding a new Patient
     }
 
+    /**
+     * Handle edit button.
+     *
+     * @throws IOException the io exception
+     */
     @FXML
     public void handleEditButton() throws IOException {
         try {
@@ -102,6 +120,9 @@ public class PrimaryRegisterViewController implements Initializable {
         }
     }
 
+    /**
+     * Handle about.
+     */
     @FXML
     public void handleAbout() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -119,6 +140,11 @@ public class PrimaryRegisterViewController implements Initializable {
         tableView.setItems(patientsObservableList);
     }
 
+    /**
+     * Select file.
+     *
+     * @throws FileNotFoundException the file not found exception
+     */
     @FXML
     public void selectFile() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
@@ -129,6 +155,9 @@ public class PrimaryRegisterViewController implements Initializable {
         getPatients();
     }
 
+    /**
+     * Save as csv.
+     */
     @FXML
     public void saveAsCSV() {
         FileChooser fileChooser = new FileChooser();
@@ -143,6 +172,11 @@ public class PrimaryRegisterViewController implements Initializable {
         }
     }
 
+    /**
+     * No patient selected.
+     *
+     * @param message the message
+     */
     public void noPatientSelected(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("No patient selected");
@@ -157,6 +191,7 @@ public class PrimaryRegisterViewController implements Initializable {
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         socialSecurityNumberColumn.setCellValueFactory(new PropertyValueFactory<>("socialSecurityNumber"));
         nameOfDoctorColumn.setCellValueFactory(new PropertyValueFactory<>("generalPractitioner"));
+        diagnosisColumn.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
         getPatients();
     }
 }
