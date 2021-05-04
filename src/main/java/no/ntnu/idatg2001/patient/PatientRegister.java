@@ -18,15 +18,6 @@ public class PatientRegister implements Register{
      */
     public PatientRegister() {
         patientArrayList = new ArrayList<>();
-        addSomePatients();
-    }
-
-    @Override
-    public void addSomePatients(){
-        patientArrayList.add(new Patient("Martin", "Stene",
-                "08059964537", "Taknæs", ""));
-        patientArrayList.add(new Patient("Martinus", "Stenesen",
-                "08059964666", "Taknæs", ""));
     }
 
     @Override

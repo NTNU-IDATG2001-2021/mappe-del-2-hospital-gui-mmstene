@@ -17,25 +17,14 @@ public class App extends Application {
     /**
      * The constant patientRegister. This is to use the same list over the whole project.
      */
-    public static PatientRegister patientRegister = new PatientRegister();
-
-    private static Scene scene;
+    public static final PatientRegister patientRegister = new PatientRegister();
 
     @Override
     public void start(Stage stage) throws IOException {
+        Scene scene;
         scene = new Scene(loadFXML("PrimaryRegisterView"));
         stage.setScene(scene);
         stage.show();
-    }
-
-    /**
-     * Sets root.
-     *
-     * @param fxml the fxml
-     * @throws IOException the io exception
-     */
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

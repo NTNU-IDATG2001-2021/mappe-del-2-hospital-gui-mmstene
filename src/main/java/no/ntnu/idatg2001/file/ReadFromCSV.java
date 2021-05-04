@@ -11,20 +11,25 @@ import java.io.*;
  */
 public class ReadFromCSV {
 
+
     /**
-     * Read.
+     * A default private constructor
+     */
+    private ReadFromCSV() {
+    }
+
+    /**
+     * Read from a selected file.
      *
      * @param file the file
-     * @throws FileNotFoundException the file not found exception
      */
-    public static void read(File file) throws FileNotFoundException {
+    public static void read(File file) throws IOException {
         String line;
-        final String SEPARATOR = ";";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+        final String seperator = ";";
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String[] tempArray;
             while ((line = br.readLine()) != null) {
-                tempArray = line.split(SEPARATOR);
+                tempArray = line.split(seperator);
                 Patient patient = new Patient(tempArray[0], tempArray[1], tempArray[3], tempArray[2], "");
                 App.patientRegister.getPatientArrayList().add(patient);
             }
@@ -49,23 +54,27 @@ public class ReadFromCSV {
         try {
             PrintWriter writer;
             writer = new PrintWriter(file);
-            try {
-                for (Patient person : App.patientRegister.getPatientArrayList()) {
-                    String text = person.getFirstName() + ","
-                            + person.getLastName() + ","
-                            + person.getSocialSecurityNumber()
-                            + "," + person.getGeneralPractitioner()
-                            + "," + person.getDiagnosis() + "\n";
-                    writer.write(text);
-                }
-            } catch (NullPointerException ex) {
-                ex.printStackTrace();
-            } finally {
-                writer.flush();
-                writer.close();
-            }
+            getPatientsToWrite(writer);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void getPatientsToWrite(PrintWriter writer){
+        try {
+            for (Patient person : App.patientRegister.getPatientArrayList()) {
+                String text = person.getFirstName() + ","
+                        + person.getLastName() + ","
+                        + person.getSocialSecurityNumber()
+                        + "," + person.getGeneralPractitioner()
+                        + "," + person.getDiagnosis() + "\n";
+                writer.write(text);
+            }
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        } finally {
+            writer.flush();
+            writer.close();
         }
     }
 }

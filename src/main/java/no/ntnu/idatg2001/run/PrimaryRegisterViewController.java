@@ -37,7 +37,9 @@ public class PrimaryRegisterViewController implements Initializable {
     private TableColumn<Patient, String> diagnosisColumn;
 
     /**
-     * Remove patient.
+     * Remove patient from the list
+     * Gets the patient from the tableview and gives the user an alert to make sure that they want to
+     * remove the selected patient, also showing the patients name in the alert.
      */
     @FXML
     public void removePatient() {
@@ -56,16 +58,14 @@ public class PrimaryRegisterViewController implements Initializable {
                 } else {
                     alert.close();
                 }
-            } else {
-                noPatientSelected("remove");
             }
         } catch (NullPointerException e){
-
+            noPatientSelected("remove");
         }
     }
 
     /**
-     * Handle add button.
+     * Opens a new window that lets you add a patient
      *
      * @throws IOException the io exception
      */
@@ -80,7 +80,8 @@ public class PrimaryRegisterViewController implements Initializable {
     }
 
     /**
-     * Handle edit button.
+     * Opens a new window that lets you edit a selected patient, grabbing his/her data to put
+     * in the new window.
      *
      * @throws IOException the io exception
      */
@@ -99,12 +100,15 @@ public class PrimaryRegisterViewController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(addP);
             stage.showAndWait();
-            getPatients();
+            getPatients(); // This is for updating the tableview after adding a new Patient
         } catch (NullPointerException ignored) {
             noPatientSelected("edit");
         }
     }
 
+    /**
+     * Opens an alert which asks you if you want to quit, hit the OK to close, cancel if not.
+     */
     @FXML
     private void handleExitButton() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -121,7 +125,7 @@ public class PrimaryRegisterViewController implements Initializable {
     }
 
     /**
-     * Handle about.
+     * Opens an alert which says a bit about the software.
      */
     @FXML
     public void handleAbout() {
@@ -132,6 +136,9 @@ public class PrimaryRegisterViewController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Gets the patients from the list and updates the tableview
+     */
     @FXML
     private void getPatients() {
         ObservableList<Patient> patientsObservableList = FXCollections.observableArrayList();
@@ -141,22 +148,23 @@ public class PrimaryRegisterViewController implements Initializable {
     }
 
     /**
-     * Select file.
+     * Lets the user select a .csv file from the system file explorer.
+     * Then reads this file and updates the tableview with the new content.
      *
-     * @throws FileNotFoundException the file not found exception
+     * @throws IOException the ioexception
      */
     @FXML
-    public void selectFile() throws FileNotFoundException {
+    public void selectFile() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", "*.csv"));
         Stage stage = new Stage();
         File selectedFile = fileChooser.showOpenDialog(stage);
         ReadFromCSV.read(selectedFile);
-        getPatients();
+        getPatients(); // This is for updating the tableview after adding a new Patient
     }
 
     /**
-     * Save as csv.
+     * Lets the user save a .csv file of the tableview list.
      */
     @FXML
     public void saveAsCSV() {
@@ -173,9 +181,9 @@ public class PrimaryRegisterViewController implements Initializable {
     }
 
     /**
-     * No patient selected.
+     * No patient selected, used multiple times so created a method.
      *
-     * @param message the message
+     * @param message will use either edit or remove
      */
     public void noPatientSelected(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

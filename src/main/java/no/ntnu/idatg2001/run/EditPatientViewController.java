@@ -2,76 +2,64 @@ package no.ntnu.idatg2001.run;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import no.ntnu.idatg2001.patient.Patient;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * The type Edit patient view controller.
  */
-public class EditPatientViewController implements Initializable {
+public class EditPatientViewController {
 
-    /**
-     * The Done button.
-     */
-    public Button doneButton;
-    /**
-     * The Cancel button.
-     */
-    public Button cancelButton;
-    /**
-     * The First name field.
-     */
-    public TextField firstNameField;
-    /**
-     * The Last name field.
-     */
-    public TextField lastNameField;
-    /**
-     * The Ssn field.
-     */
-    public TextField ssnField;
-    /**
-     * The Name of doctor field.
-     */
-    public TextField nameOfDoctorField;
-    /**
-     * The Diagnosis field.
-     */
-    public TextField diagnosisField;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField ssnField;
+    @FXML
+    private TextField nameOfDoctorField;
+    @FXML
+    private TextField diagnosisField;
+    @FXML
     private Patient selectedPatient;
 
     /**
-     * Handle update patient button.
+     * Edits an existing patient.
+     * Gets the info about the patient from initData() used in the primarycontroller.
+     * Uses this info an sets the text in the fields, if all requirements are met the
+     * patient will be removed and a new one with the updated details will be added to the list.
      *
      * @param event the event
-     * @throws IOException the io exception
      */
     @FXML
-    public void handleUpdatePatientButton(ActionEvent event) throws IOException {
-        if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty() &&
-                !ssnField.getText().isEmpty() && !nameOfDoctorField.getText().isEmpty()) {
-            // Apply changes to task
-            this.selectedPatient.setFirstName(firstNameField.getText());
-            this.selectedPatient.setLastName(lastNameField.getText());
-            this.selectedPatient.setSocialSecurityNumber(ssnField.getText());
-            this.selectedPatient.setGeneralPractitioner(nameOfDoctorField.getText());
-            this.selectedPatient.setDiagnosis(diagnosisField.getText());
-
-            Patient editedPatient = new Patient(firstNameField.getText(), lastNameField.getText(),
-                    ssnField.getText(), nameOfDoctorField.getText(), diagnosisField.getText());
-
-            App.patientRegister.getPatientArrayList().remove(selectedPatient);
-            App.patientRegister.getPatientArrayList().add(editedPatient);
+    public void handleUpdatePatientButton(ActionEvent event) {
+        String redColour = "-fx-border-color: red;";
+        try {
+            if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty() &&
+                    !ssnField.getText().isEmpty() && !nameOfDoctorField.getText().isEmpty()) {
+                // Apply changes to task
+                this.selectedPatient.setFirstName(firstNameField.getText());
+                this.selectedPatient.setLastName(lastNameField.getText());
+                this.selectedPatient.setSocialSecurityNumber(ssnField.getText());
+                this.selectedPatient.setGeneralPractitioner(nameOfDoctorField.getText());
+                this.selectedPatient.setDiagnosis(diagnosisField.getText());
 
 
+                if (!AddPatientViewController.removeDuplicateCode(redColour, firstNameField, lastNameField, ssnField, nameOfDoctorField)
+                        && ssnField.getText().chars().allMatch(Character::isDigit) && ssnField.getText().length() == 11) {
+
+                    Patient editedPatient = new Patient(firstNameField.getText(), lastNameField.getText(),
+                            ssnField.getText(), nameOfDoctorField.getText(), diagnosisField.getText());
+
+                    App.patientRegister.getPatientArrayList().remove(selectedPatient);
+                    App.patientRegister.getPatientArrayList().add(editedPatient);
+                    closePopup(event);
+                }
+            }
+        } catch (NullPointerException e) {
+            e.getCause();
             closePopup(event);
         }
     }
@@ -97,9 +85,9 @@ public class EditPatientViewController implements Initializable {
     }
 
     /**
-     * Init data.
+     * Initializing the data of the selected patient.
      *
-     * @param patient the patient
+     * @param patient the patient selected from the tableview
      */
     public void initData(Patient patient) {
         this.selectedPatient = patient;
@@ -109,10 +97,5 @@ public class EditPatientViewController implements Initializable {
         ssnField.setText(patient.getSocialSecurityNumber());
         nameOfDoctorField.setText(patient.getGeneralPractitioner());
         diagnosisField.setText(patient.getDiagnosis());
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }

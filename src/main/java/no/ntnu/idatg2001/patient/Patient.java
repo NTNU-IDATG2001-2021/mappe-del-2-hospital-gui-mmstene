@@ -1,7 +1,5 @@
 package no.ntnu.idatg2001.patient;
 
-import java.util.Objects;
-
 /**
  * The type Patient.
  */

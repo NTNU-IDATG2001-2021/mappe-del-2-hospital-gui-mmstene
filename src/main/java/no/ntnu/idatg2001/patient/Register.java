@@ -21,11 +21,6 @@ public interface Register {
     void removePatient(Patient patient);
 
     /**
-     * Add some patients.
-     */
-    void addSomePatients();
-
-    /**
      * Gets patient array list.
      *
      * @return the patient array list

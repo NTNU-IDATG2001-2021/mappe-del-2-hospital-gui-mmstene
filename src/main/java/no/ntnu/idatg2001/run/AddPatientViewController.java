@@ -4,21 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import no.ntnu.idatg2001.patient.Patient;
-
-import java.io.IOException;
 
 /**
  * The type Add patient view controller.
  */
 public class AddPatientViewController {
-    @FXML
-    private Button doneButton;
-    @FXML
-    private Button cancelButton;
     @FXML
     private TextField firstNameField;
     @FXML
@@ -32,13 +25,13 @@ public class AddPatientViewController {
 
 
     /**
-     * Handle create button.
+     * Creates a new patient and adds them if certain conditions are fulfilled.
+     * Adds them to the static list which gets updated after adding.
      *
-     * @param event the event
-     * @throws IOException the io exception
+     * @param event the event to close the window
      */
     @FXML
-    public void handleCreateButton(ActionEvent event) throws IOException {
+    public void handleCreateButton(ActionEvent event) {
         String greyColour = "-fx-border-color: lightgrey;";
         String redColour = "-fx-border-color: red;";
 
@@ -48,30 +41,52 @@ public class AddPatientViewController {
         nameOfDoctorField.setStyle(greyColour);
         diagnosisField.setStyle(greyColour);
 
-        if (firstNameField.getText().isEmpty()) {
+        if (!removeDuplicateCode(redColour, firstNameField, lastNameField, ssnField, nameOfDoctorField) && ssnField.getText().chars().allMatch(Character::isDigit) && ssnField.getCharacters().length() == 11) {
+            App.patientRegister.addPatient(new Patient(firstNameField.getText(), lastNameField.getText(), ssnField.getText()
+                    , nameOfDoctorField.getText(), diagnosisField.getText()));
+            closePopup(event);
+        }
+    }
+
+
+    /**
+     * Checking each field to see if they are empty or to see if they have the correct data type
+     * inserted in the textField.
+     *
+     * @param redColour         color of the textfield
+     * @param firstNameField    first name textfield
+     * @param lastNameField     last name textfield
+     * @param ssnField          has an extra layer of code because I want the user to know that ssn requires 11 digits.
+     * @param nameOfDoctorField name of dcotor textfield
+     * @return the boolean as true if a condition goes through
+     */
+    static boolean removeDuplicateCode(String redColour, TextField firstNameField, TextField lastNameField, TextField ssnField, TextField nameOfDoctorField) {
+        boolean wrongTextFlag = false;
+        if (firstNameField.getText().isEmpty() ||
+                !firstNameField.getText().chars().allMatch(Character::isAlphabetic)) {
             firstNameField.setStyle(redColour);
+            wrongTextFlag = true;
         }
-        if (lastNameField.getText().isEmpty()) {
+        if (lastNameField.getText().isEmpty() ||
+                !lastNameField.getText().chars().allMatch(Character::isAlphabetic)) {
             lastNameField.setStyle(redColour);
+            wrongTextFlag = true;
         }
-        if (ssnField.getText().isEmpty() || ssnField.getCharacters().length() != 11) {
+        if (ssnField.getText().isEmpty() || ssnField.getText().length() != 11) {
             ssnField.setStyle(redColour);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Wrong digit count");
+            alert.setHeaderText("You did not enter a valid social security number!");
+            alert.setContentText("Please enter a valid ssn, 11 digits. These need to be integers.");
+            alert.showAndWait();
+            wrongTextFlag = true;
         }
-        if (nameOfDoctorField.getText().isEmpty()) {
+        if (nameOfDoctorField.getText().isEmpty() ||
+                !nameOfDoctorField.getText().chars().allMatch(Character::isAlphabetic)) {
             nameOfDoctorField.setStyle(redColour);
-        } else {
-            if (ssnField.getCharacters().length() == 11) {
-                App.patientRegister.addPatient(new Patient(firstNameField.getText(), lastNameField.getText(), ssnField.getText()
-                        , nameOfDoctorField.getText(), diagnosisField.getText()));
-                closePopup(event);
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Wrong digit count");
-                alert.setHeaderText("You did not enter a valid social security number!");
-                alert.setContentText("Please enter a valid ssn, 11 digits.");
-                alert.showAndWait();
-            }
+            wrongTextFlag = true;
         }
+        return wrongTextFlag;
     }
 
     /**
