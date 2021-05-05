@@ -47,7 +47,7 @@ public class EditPatientViewController {
                 this.selectedPatient.setDiagnosis(diagnosisField.getText());
 
 
-                if (!AddPatientViewController.removeDuplicateCode(redColour, firstNameField, lastNameField, ssnField, nameOfDoctorField)
+                if (!AddPatientViewController.checkIfFieldsAreGood(redColour, firstNameField, lastNameField, ssnField, nameOfDoctorField,diagnosisField)
                         && ssnField.getText().chars().allMatch(Character::isDigit) && ssnField.getText().length() == 11) {
 
                     Patient editedPatient = new Patient(firstNameField.getText(), lastNameField.getText(),

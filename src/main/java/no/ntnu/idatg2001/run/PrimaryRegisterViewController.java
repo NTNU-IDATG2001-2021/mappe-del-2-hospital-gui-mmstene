@@ -16,7 +16,6 @@ import no.ntnu.idatg2001.patient.Patient;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -50,16 +49,18 @@ public class PrimaryRegisterViewController implements Initializable {
                 alert.setTitle("Removing the patient");
                 alert.setHeaderText("Do you really want to remove " + patient + " from the registry?");
                 alert.setContentText("Are you really ok with this?");
+                alert.showAndWait();
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
+                if (alert.getResult() == ButtonType.OK) {
                     App.patientRegister.removePatient(patient);
                     getPatients();
                 } else {
                     alert.close();
                 }
+            } else {
+                noPatientSelected("remove");
             }
-        } catch (NullPointerException e){
+        } catch (NullPointerException ignored) {
             noPatientSelected("remove");
         }
     }
@@ -115,9 +116,9 @@ public class PrimaryRegisterViewController implements Initializable {
         alert.setTitle("Exit");
         alert.setHeaderText("Do you really want to exit the application?");
         alert.setContentText("Are you ok with this?");
+        alert.showAndWait();
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if (alert.getResult() == ButtonType.OK) {
             System.exit(0);
         } else {
             alert.close();
@@ -155,12 +156,14 @@ public class PrimaryRegisterViewController implements Initializable {
      */
     @FXML
     public void selectFile() throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", "*.csv"));
-        Stage stage = new Stage();
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        ReadFromCSV.read(selectedFile);
-        getPatients(); // This is for updating the tableview after adding a new Patient
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+            Stage stage = new Stage();
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            ReadFromCSV.read(selectedFile);
+            getPatients(); // This is for updating the tableview after adding a new Patient
+        } catch (NullPointerException ignored){}
     }
 
     /**
@@ -168,16 +171,18 @@ public class PrimaryRegisterViewController implements Initializable {
      */
     @FXML
     public void saveAsCSV() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save as");
-        fileChooser.setInitialFileName("");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV files", "*.csv"));
-        Stage stage = new Stage();
-        File file = fileChooser.showSaveDialog(stage);
-        fileChooser.setInitialDirectory(file.getParentFile());
-        if (file != null) {
-            ReadFromCSV.saveListToFile(file);
-        }
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save as");
+            fileChooser.setInitialFileName("");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+            Stage stage = new Stage();
+            File file = fileChooser.showSaveDialog(stage);
+            if (file != null) {
+                fileChooser.setInitialDirectory(file.getParentFile());
+                ReadFromCSV.saveListToFile(file);
+            }
+        } catch (NullPointerException ignored){}
     }
 
     /**
@@ -186,7 +191,7 @@ public class PrimaryRegisterViewController implements Initializable {
      * @param message will use either edit or remove
      */
     public void noPatientSelected(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("No patient selected");
         alert.setHeaderText("You didn't select a patient to " + message + "!");
         alert.setContentText("Please select a patient if you want to " + message + " them.");

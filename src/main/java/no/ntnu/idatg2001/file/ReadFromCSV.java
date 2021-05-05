@@ -11,6 +11,8 @@ import java.io.*;
  */
 public class ReadFromCSV {
 
+    static String diagnosis;
+
 
     /**
      * A default private constructor
@@ -25,18 +27,22 @@ public class ReadFromCSV {
      */
     public static void read(File file) throws IOException {
         String line;
-        final String seperator = ";";
+        final String separator = ";";
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String[] tempArray;
             while ((line = br.readLine()) != null) {
-                tempArray = line.split(seperator);
-                Patient patient = new Patient(tempArray[0], tempArray[1], tempArray[3], tempArray[2], "");
+                tempArray = line.split(separator);
+                if (tempArray.length < 5){
+                    diagnosis = "";
+                } else diagnosis = tempArray[4];
+
+                Patient patient = new Patient(tempArray[0], tempArray[1], tempArray[3], tempArray[2], diagnosis);
                 App.patientRegister.getPatientArrayList().add(patient);
             }
         } catch (IOException e) {
             e.getCause();
         } catch (ArrayIndexOutOfBoundsException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect file formatting!");
             alert.setHeaderText("Incorrect formatting of .csv file");
             alert.setContentText("To import a .csv file you will need it on the format: " +

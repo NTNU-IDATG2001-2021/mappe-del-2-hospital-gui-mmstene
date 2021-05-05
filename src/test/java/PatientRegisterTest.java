@@ -28,7 +28,7 @@ class PatientRegisterTest {
     }
 
     @Test
-    @DisplayName("Checking to see if a patient is added sucsessfully")
+    @DisplayName("Checking to see if a patient is added successfully")
     void addPatient() {
         int beforeAdd = patientRegister.getPatientArrayList().size();
         patientRegister.addPatient(patient);
@@ -48,13 +48,12 @@ class PatientRegisterTest {
     }
 
     @Test
-    @DisplayName("Checking to see if a patient is added sucsessfully, negative test")
+    @DisplayName("Checking to see if a patient is added successfully, negative test")
     void addPatientNegative(){
         try {
-            int beforeAdd = patientRegister.getPatientArrayList().size();
-            patientRegister.addPatient(patient);
-            int afterAdd = patientRegister.getPatientArrayList().size();
-            fail("Should not be the same!");
+            patientRegister.addPatient(new Patient("Hei", "Svein",
+                    "1", "Hansen",""));
+            fail("This should fail because the ssn is not equal to 11 digits");
         } catch (Exception e){
             assertTrue(true);
         }
@@ -67,7 +66,7 @@ class PatientRegisterTest {
             int beforeAdd = patientRegister.getPatientArrayList().size();
             patientRegister.removePatient(patient);
             int afterAdd = patientRegister.getPatientArrayList().size();
-            fail("Should not be the same!");
+            fail("Should not be the same after removing a patient!");
         } catch (Exception e){
             assertTrue(true);
         }

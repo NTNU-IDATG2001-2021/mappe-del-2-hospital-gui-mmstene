@@ -41,7 +41,8 @@ public class AddPatientViewController {
         nameOfDoctorField.setStyle(greyColour);
         diagnosisField.setStyle(greyColour);
 
-        if (!removeDuplicateCode(redColour, firstNameField, lastNameField, ssnField, nameOfDoctorField) && ssnField.getText().chars().allMatch(Character::isDigit) && ssnField.getCharacters().length() == 11) {
+        if (!checkIfFieldsAreGood(redColour, firstNameField, lastNameField, ssnField, nameOfDoctorField,diagnosisField)
+                && ssnField.getText().chars().allMatch(Character::isDigit) && ssnField.getCharacters().length() == 11) {
             App.patientRegister.addPatient(new Patient(firstNameField.getText(), lastNameField.getText(), ssnField.getText()
                     , nameOfDoctorField.getText(), diagnosisField.getText()));
             closePopup(event);
@@ -60,21 +61,21 @@ public class AddPatientViewController {
      * @param nameOfDoctorField name of dcotor textfield
      * @return the boolean as true if a condition goes through
      */
-    static boolean removeDuplicateCode(String redColour, TextField firstNameField, TextField lastNameField, TextField ssnField, TextField nameOfDoctorField) {
+    static boolean checkIfFieldsAreGood(String redColour, TextField firstNameField, TextField lastNameField, TextField ssnField, TextField nameOfDoctorField, TextField diagnosisField) {
         boolean wrongTextFlag = false;
         if (firstNameField.getText().isEmpty() ||
-                !firstNameField.getText().chars().allMatch(Character::isAlphabetic)) {
+                !firstNameField.getText().chars().filter(s -> !Character.isSpaceChar(s)).allMatch(Character::isLetter)) {
             firstNameField.setStyle(redColour);
             wrongTextFlag = true;
         }
         if (lastNameField.getText().isEmpty() ||
-                !lastNameField.getText().chars().allMatch(Character::isAlphabetic)) {
+                !lastNameField.getText().chars().filter(s -> !Character.isSpaceChar(s)).allMatch(Character::isLetter)) {
             lastNameField.setStyle(redColour);
             wrongTextFlag = true;
         }
         if (ssnField.getText().isEmpty() || ssnField.getText().length() != 11) {
             ssnField.setStyle(redColour);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Wrong digit count");
             alert.setHeaderText("You did not enter a valid social security number!");
             alert.setContentText("Please enter a valid ssn, 11 digits. These need to be integers.");
@@ -82,8 +83,13 @@ public class AddPatientViewController {
             wrongTextFlag = true;
         }
         if (nameOfDoctorField.getText().isEmpty() ||
-                !nameOfDoctorField.getText().chars().allMatch(Character::isAlphabetic)) {
+                !nameOfDoctorField.getText().chars().filter(s -> !Character.isSpaceChar(s)).allMatch(Character::isLetter)) {
             nameOfDoctorField.setStyle(redColour);
+            wrongTextFlag = true;
+        }
+
+        if (!diagnosisField.getText().chars().filter(s -> !Character.isSpaceChar(s)).allMatch(Character::isLetter)){
+            diagnosisField.setStyle(redColour);
             wrongTextFlag = true;
         }
         return wrongTextFlag;
